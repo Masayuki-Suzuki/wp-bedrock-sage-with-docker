@@ -1,0 +1,48 @@
+version: '2'
+services:
+  mysql:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./db-data:/var/lib/mysql
+  php:
+    build: ./php
+    container_name: php
+    restart: always
+    volumes:
+      - ./www:/src
+      - ./php:/usr/local/etc/php
+    depends_on:
+      - mysql
+  nginx:
+    image: nginx
+    container_name: wp-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/src
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #     - PMA_HOST=mysql
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=admin
+  #   depends_on:
+  #     - mysql
+  #   ports:
+  #     - 8080:80
+  #   volumes:
+  #     - "./phpmyadmin/sessions:/sessions"
+volumes:
+    db-data:
