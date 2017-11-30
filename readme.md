@@ -12,11 +12,11 @@
 * Running shell script  
 ``$ sh sh/init.sh``
 * Set up .env file in bedrock directory.  
-example: {Your project directory}/www/{bedrock directory}/.env
+`example: {Your project directory}/www/{bedrock directory}/.env`  
   ```mysql host name : mysql:3306```
 * Set up your development domain name like `http://example.dev` in Hosts file.
 * Set up virtual host in ./nginx/default.conf
-!! You have to write root directory is /src/{ bedrock directory name }/web/
+!! You have to write root directory is `/src/{ bedrock directory name }/web/`
 * Access to `{your development domain name}/wp/wp-admin` then start to install Wordpress.
 
 ## Usage
